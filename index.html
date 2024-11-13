@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirect...</title>
+  <link rel="icon" type="image/png" href="/logo.png">
+</head>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: inherit;
+  }
+
+  p {
+    font-size: 1.2em;
+    color: inherit;
+  }
+</style>
+<body>
+  <h1>CV Download</h1>
+  <p>CV has been downloaded based on your preferred color scheme.</p>
+  <p>Also, consider viewing <a href="http://abcdesign1.github.io">my personal site.</a></p>
+  <script>
+    // Base: https://support.google.com/drive/thread/110733332/direct-download-link-for-file?hl=en
+    // Check if the user prefers dark mode
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      // Set redirect tab background to black if black is preferred by user agent
+      document.body.style.background = 'black';
+      document.body.style.color = 'white';
+      // Redirect to the dark theme URL
+      window.location.href = 'https://drive.google.com/uc?export=download&id=1kNvOmpoiT207aUyo7SAcSjyZlOFQbU7_';
+    } else {
+      // Redirect to the default theme URL
+      window.location.href = 'https://drive.google.com/uc?export=download&id=1clksjZSpw1Ht_51OnnfzvCt3vBpR0FjP';
+      document.body.style.background = 'white';
+      document.body.style.color = 'black';
+    }
+  </script>
+</body>
+</html>
