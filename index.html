@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VADIM4WEB : Download CV</title>
+  <title id="page-title">VADIM4WEB : Download CV</title>
   <link rel="icon" type="image/png" href="/logo.png">
 </head>
 <style>
   body {
     margin: 0;
     padding: 0;
-
     font-family: 'Arial', sans-serif;
     display: flex;
     flex-direction: column;
@@ -32,24 +31,66 @@
   }
 </style>
 <body>
-  <h1>VADIM4WEB : Download CV</h1>
-  <p>CV has been downloaded based on your preferred color scheme.</p>
+  <h1 id="header">VADIM4WEB : Download CV</h1>
+  <p id="download-message"></p>
   <p>Also, consider viewing <a href="http://vadim4web.github.io">my personal site.</a></p>
+
   <script>
-    // Base: https://support.google.com/drive/thread/110733332/direct-download-link-for-file?hl=en
+    // Get the user's preferred language
+    const userLang = navigator.language || navigator.userLanguage;
+
     // Check if the user prefers dark mode
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      // Set redirect tab background to black if black is preferred by user agent
-      document.body.style.background = 'black';
-      document.body.style.color = 'white';
-      // Redirect to the dark theme URL
-      window.location.href = 'https://drive.google.com/uc?export=download&id=1rh1FdX5F65rFrVqWCKt0IlMf5WQSAwl3';
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    // Define the URLs for the different combinations of theme
+    const urls = {
+      "dark-en": "https://drive.google.com/uc?export=download&id=1RRYNn1iIaF29Nmv423GfiMu_JQPJ35rA", // English Dark
+      "light-en": "https://drive.google.com/uc?export=download&id=11WNS0aFeWPPPStjyxQ_-bTLOJXej_vgD", // English Light
+      "dark-ua": "https://drive.google.com/uc?export=download&id=1jHBMHSVIkZ9LQBNkFAjT6sjthinWyjRx", // Ukrainian Dark
+      "light-ua": "https://drive.google.com/uc?export=download&id=15LGWmXvX1S13yu1FiN7bOTYgVpWRxAO2", // Ukrainian Light
+    };
+
+    // Check if the language is either Ukrainian (uk) or Russian (ru), otherwise default to English
+    let languageKey = (userLang.startsWith('uk') || userLang.startsWith('ru')) ? 'ua' : 'en';
+
+    // Combine the language and theme to determine the correct URL
+    const theme = prefersDarkMode ? 'dark' : 'light';
+    const redirectUrl = `${theme}-${languageKey}`;
+
+    // Define messages for different languages
+    const messages = {
+      "en": {
+        header: "VADIM4WEB : Download CV",
+        light: "CV has been downloaded in English (Light Mode).",
+        dark: "CV has been downloaded in English (Dark Mode)."
+      },
+      "ua": {
+        header: "VADIM4WEB : Завантажити резюме",
+        light: "Резюме було завантажено українською (світла тема).",
+        dark: "Резюме було завантажено українською (темна тема)."
+      }
+    };
+
+    // Set dynamic content based on language and theme
+    const message = messages[languageKey][theme];
+    document.getElementById("header").innerText = messages[languageKey].header;
+    document.getElementById("download-message").innerText = message;
+
+    // Change the title based on the theme
+    const title = prefersDarkMode ? "VADIM4WEB : Download CV (Dark Mode)" : "VADIM4WEB : Download CV (Light Mode)";
+    document.getElementById("page-title").innerText = title;
+
+    // Change the body background and text color based on the theme
+    if (prefersDarkMode) {
+      document.body.style.backgroundColor = '#121212'; // Dark background
+      document.body.style.color = 'white'; // White text
     } else {
-      // Redirect to the default theme URL
-      window.location.href = 'https://drive.google.com/uc?export=download&id=1kRcvX2GjSjgvC4JmL56uYnDCEnJUaSHG';
-      document.body.style.background = 'white';
-      document.body.style.color = 'black';
+      document.body.style.backgroundColor = 'white'; // Light background
+      document.body.style.color = 'black'; // Black text
     }
+
+    // Redirect to the appropriate URL based on language and theme
+    window.location.href = urls[redirectUrl];
   </script>
 </body>
 </html>
